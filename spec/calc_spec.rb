@@ -15,4 +15,10 @@ RSpec.describe Calculator do # I'm describing the Calculator class (from calc.rb
     expect(c.result).to eq(5)
   end
 
+  it "can add two different numbers" do
+    c = Calculator.new
+    c.evaluate("4 + 5")
+    expect(c.result).to eq(9)
+  end
+
 end
