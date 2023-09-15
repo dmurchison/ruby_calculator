@@ -1,18 +1,13 @@
+# frozen_string_literal: true
 
+# Calculator Class
 class Calculator
-  
+  attr_accessor :result
+
   def evaluate(expression)
-    @res = expression.to_i + expression.reverse.to_i
+    expression.to_i + expression.reverse.to_i
   end
-
-  def result
-    @res
-  end
-
-  
-
 end
-
 
 # SUDO
 # Break the string into operands and operator (regex)
