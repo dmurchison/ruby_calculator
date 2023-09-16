@@ -10,11 +10,5 @@ class Calculator # rubocop:disable Style/Documentation
   end
 end
 
-c = Calculator.new
-p c.evaluate('2 + 2') # 4
-p c.evaluate('2 + 3') # 5
-
-# SUDO
-# Break the string into operands and operator (regex) Didn't use regex, refactored code and would like to here your thoughts on this approach
-# Turn the operands into numbers (parse) ✅
-# Do the evaluation ✅
+# Break the string into operands and operator (regex) Didn't use regex
+# refactored code and would like to here your thoughts on this approach
