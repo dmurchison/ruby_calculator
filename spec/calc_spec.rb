@@ -20,12 +20,12 @@ RSpec.describe Calculator do # I'm describing the Calculator class (from calc.rb
     expect(calc.result).to eq(9)
   end
 
-  xit 'can subtract two of the same numbers' do
+  it 'can subtract two of the same numbers' do
     calc.evaluate('5 - 5')
     expect(calc.result).to eq(0)
   end
 
-  xit 'can subtract two numbers' do
+  it 'can subtract two numbers' do
     calc.evaluate('5 - 2')
     expect(calc.result).to eq(3) # This test will fail
   end
