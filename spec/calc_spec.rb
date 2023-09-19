@@ -15,7 +15,13 @@ RSpec.describe Calculator do # I'm describing the Calculator class (from calc.rb
   end
 
   it 'can add two different numbers' do
+    # This is a different test yes very similar to the one above
     calc.evaluate('4 + 5')
     expect(calc.result).to eq(9)
+  end
+
+  it 'can subtract two numbers' do
+    calc.evaluate('5 - 2')
+    expect(calc.result).to eq?(3) # This test will fail
   end
 end
