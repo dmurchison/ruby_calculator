@@ -29,4 +29,9 @@ RSpec.describe Calculator do # I'm describing the Calculator class (from calc.rb
     calc.evaluate('5 - 2')
     expect(calc.result).to eq(3) # This test will fail
   end
+
+  it 'can multiply two numbers' do
+    calc.evaluate('6 * 3')
+    expect(calc.result).to eq(18)
+  end
 end
