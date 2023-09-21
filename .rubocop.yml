@@ -1,0 +1,30 @@
+inherit_from: .rubocop_todo.yml
+
+# Run `rubocop --auto-gen-config --auto-gen-only-exclude`
+
+AllCops:
+  NewCops: disable
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Lint/Debugger:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
