@@ -6,7 +6,7 @@
         {
             "label": "RSpec",
             "type": "shell",
-            "command": "rbenv exec bundle exec rspec",
+            "command": "bundle exec rspec",
             "problemMatcher": [],
             "group": {
                 "kind": "build",

@@ -41,13 +41,12 @@ class Calculator
       second_operand = nil
     end
   end
-
 end
 
-# c = Calculator.new
+c = Calculator.new
 # p c.evaluate("2 + 3") # 5
 # p c.evaluate("2 - 3") # -1
-# p c.evaluate("2 * 3") # 6
+p c.evaluate("2 * 3") # 6
 # p c.evaluate("12 / 0") # ZeroDivisionError
 # p c.evaluate("15 / 15") # Always 1
 # p c.evaluate("2 + 3 - 4") # 1
