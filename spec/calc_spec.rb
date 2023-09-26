@@ -7,7 +7,7 @@ RSpec.describe Calculator do
   let(:calc) { Calculator.new } # This is a helper method that will create a new instance of the Calculator class
 
     it "exists" do
-      expect(calc).to respond_to?(:evaluate)
+      expect(calc).to be_a(Calculator)
     end
 
     it "can add two numbers" do
