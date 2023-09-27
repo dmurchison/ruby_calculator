@@ -23,30 +23,37 @@ class Calculator
         next
       end
       second_operand = token.to_i
-      case operator # I don't think this is doing anything different than the if statement, but I like it better
-      when "+"
-        @result += second_operand
-      when "-"
-        @result -= second_operand
-      when "*"
-        @result *= second_operand
-      when "/"
-        begin
-          @result /= second_operand
-        rescue ZeroDivisionError
-          @result = "You can't divide by 0!"
-        end
-      end
+      operate(operator, second_operand)
       operator = nil
       second_operand = nil
     end
   end
+
+  private
+
+  def operate(operator, second_operand)
+    case operator
+    when "+"
+      @result += second_operand
+    when "-"
+      @result -= second_operand
+    when "*"
+      @result *= second_operand
+    when "/"
+      begin
+        @result /= second_operand
+      rescue ZeroDivisionError
+        @result = "You can't divide by 0!"
+      end
+    end
+  end
+
 end
 
-c = Calculator.new
+# c = Calculator.new
 # p c.evaluate("2 + 3") # 5
 # p c.evaluate("2 - 3") # -1
-p c.evaluate("2 * 3") # 6
+# p c.evaluate("2 * 3") # 6
 # p c.evaluate("12 / 0") # ZeroDivisionError
 # p c.evaluate("15 / 15") # Always 1
 # p c.evaluate("2 + 3 - 4") # 1
