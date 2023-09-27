@@ -8,8 +8,7 @@ class Calculator
   attr_accessor :result
 
   def evaluate(expression)
-
-    p tokens = expression.scan(/\d+|[+-\/*%]/)
+    tokens = expression.scan(/\d+|[+\-*\/%]/)
     operator = nil
     second_operand = nil
 
@@ -50,13 +49,13 @@ class Calculator
 
 end
 
-# c = Calculator.new
-# p c.evaluate("2 + 3") # 5
-# p c.evaluate("2 - 3") # -1
-# p c.evaluate("2 * 3") # 6
-# p c.evaluate("12 / 0") # ZeroDivisionError
-# p c.evaluate("15 / 15") # Always 1
-# p c.evaluate("2 + 3 - 4") # 1
+c = Calculator.new
+p c.evaluate("2 + 3") # 5
+p c.evaluate("2 - 3") # -1
+p c.evaluate("2 * 3") # 6
+p c.evaluate("12 / 0") # ZeroDivisionError
+p c.evaluate("15 / 15") # Always 1
+p c.evaluate("2 + 3 - 4") # 1
 
 # Using RSpec TDD make this calculator work with more than one operation at a time ie "2 + 3 - 4" should return 1.
 # Create assertion about evaluation and execution
