@@ -61,6 +61,5 @@ p c.evaluate("2 + 3 - 4") # 1
 # Create assertion about evaluation and execution
 
 # Defect: Mistake in the code ()
-# Error: Is when we get
-
-# Write a test that can handle string inputs and the spacing between operators and operands
+# Error: Is when we have to make an exception to the code (ie. divide by 0).
+# We can handle it by either raising an error or returning a string.
