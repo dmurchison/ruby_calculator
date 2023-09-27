@@ -35,4 +35,9 @@ RSpec.describe Calculator do
       expect(calc.result).to eq(1)
     end
 
+    it "can evaluate funky formatted strings" do
+      calc.evaluate("25    +5*2")
+      expect(calc.result).to eq(60)
+    end
+
 end

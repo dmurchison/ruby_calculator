@@ -9,7 +9,7 @@ class Calculator
 
   def evaluate(expression)
 
-    tokens = expression.split(" ")
+    p tokens = expression.scan(/\d+|[+-\/*%]/)
     operator = nil
     second_operand = nil
 
