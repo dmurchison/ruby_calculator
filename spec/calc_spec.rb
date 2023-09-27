@@ -6,10 +6,13 @@ require "rspec"
 RSpec.describe Calculator do
   let(:calc) { Calculator.new } # This is a helper method that will create a new instance of the Calculator class
 
-    it "exists" do
-      expect(calc).to be_a(Calculator)
+  describe "#evaluate" do
+    it "can turn any string into a well formatted expression" do
+      expect { calc.evaluate("2 + 3*100").to eq(["2", "+", "3", "*", "100"]) }
     end
+  end
 
+  describe "#operate" do
     it "can add two numbers" do
       calc.evaluate("4 + 5")
       expect(calc.result).to eq(9)
@@ -39,5 +42,6 @@ RSpec.describe Calculator do
       calc.evaluate("25    +5*2")
       expect(calc.result).to eq(60)
     end
+  end
 
 end
