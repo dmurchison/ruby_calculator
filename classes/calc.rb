@@ -49,8 +49,9 @@ class Calculator
 
 end
 
-# c = Calculator.new
-# p c.evaluate("2 + 3") # 5
+c = Calculator.new
+c.evaluate("2 + 3")
+p c.result
 # p c.evaluate("2 - 3") # -1
 # p c.evaluate("2 * 3") # 6
 # p c.evaluate("12 / 0") # ZeroDivisionError
