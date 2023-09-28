@@ -8,6 +8,7 @@ RSpec.describe Calculator do
 
   describe "#evaluate" do
     it "can turn any string into a well formatted expression" do
+      expect { calc.evaluate("2 + 3").to be_a(Array) }
       expect { calc.evaluate("2 + 3*100").to eq(["2", "+", "3", "*", "100"]) }
     end
   end
