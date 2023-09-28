@@ -8,54 +8,54 @@ class Calculator
   attr_accessor :result
 
   def evaluate(expression)
-    tokens = expression.scan(/\d+|[+\-*\/%]/)
-    operator = nil
-    second_operand = nil
+    tokens = expression.scan(/\d+|[+\-*\/%]/) # \d+ = one or more digits, | = or, [+\-*\/%] = one of these characters
+    operator = nil # set this to nil so we can use it in the operate method
+    second_operand = nil # set this to nil so we can use it in the operate method
 
-    tokens.each do |token|
-      if @result.nil?
-        @result = token.to_i
-        next
+    tokens.each do |token| # token is a variable that represents each element in the array
+      if @result.nil? # if result is nil, set it to the first token
+        @result = token.to_i # to_i converts a string to an integer
+        next # next skips the rest of the code in the loop and goes to the next iteration
       end
-      if operator.nil?
-        operator = token
-        next
+      if operator.nil? # if operator is nil, set it to the next token
+        operator = token # this is the operator
+        next # next skips the rest of the code in the loop and goes to the next iteration
       end
-      second_operand = token.to_i
-      operate(operator, second_operand)
-      operator = nil
-      second_operand = nil
+      second_operand = token.to_i # set the second operand to the next token
+      operate(operator, second_operand) # call the operate method
+      operator = nil # set operator back to nil so we can use it in the next iteration
+      second_operand = nil # set second_operand back to nil so we can use it in the next iteration
     end
   end
 
   private
 
-  def operate(operator, second_operand)
-    case operator
-    when "+"
+  def operate(operator, second_operand) # this method is private because we don't call it outside of the class 
+    case operator # case operator is the same as if operator == "+"
+    when "+" # when operator is "+", add the second operand to the result
       @result += second_operand
-    when "-"
+    when "-" # when operator is "-", subtract the second operand from the result
       @result -= second_operand
-    when "*"
+    when "*" # when operator is "*", multiply the second operand by the result
       @result *= second_operand
-    when "/"
+    when "/" # when operator is "/", divide the result by the second operand
       begin
         @result /= second_operand
       rescue ZeroDivisionError
-        @result = "You can't divide by 0!"
+        @result = "You can't divide by 0!" # Return this instead of raising an error if the user tries to divide by 0.
       end
     end
   end
 
 end
 
-c = Calculator.new
-p c.evaluate("2 + 3") # 5
-p c.evaluate("2 - 3") # -1
-p c.evaluate("2 * 3") # 6
-p c.evaluate("12 / 0") # ZeroDivisionError
-p c.evaluate("15 / 15") # Always 1
-p c.evaluate("2 + 3 - 4") # 1
+# c = Calculator.new
+# p c.evaluate("2 + 3") # 5
+# p c.evaluate("2 - 3") # -1
+# p c.evaluate("2 * 3") # 6
+# p c.evaluate("12 / 0") # ZeroDivisionError
+# p c.evaluate("15 / 15") # Always 1
+# p c.evaluate("2 + 3 - 4") # 1
 
 # Using RSpec TDD make this calculator work with more than one operation at a time ie "2 + 3 - 4" should return 1.
 # Create assertion about evaluation and execution
