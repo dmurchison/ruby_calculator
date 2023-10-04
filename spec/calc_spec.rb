@@ -4,12 +4,25 @@ require_relative "../classes/calc" # First I need to load the class/file I want 
 require "rspec"
 
 RSpec.describe Calculator do
-  let(:calc) { Calculator.new } # This is a helper method that will create a new instance of the Calculator class
+  let(:calc) { Calculator.new } # This is a helper method that will create a new instance of the Calculator
 
   describe "#evaluate" do
-    it "can turn any string into a well formatted expression" do
+    it "evaluates an arithmetic expression" do
       expect { calc.evaluate("2 + 3").to be_a(Array) }
       expect { calc.evaluate("2 + 3*100").to eq(["2", "+", "3", "*", "100"]) }
+    end
+
+    it "keeps a running tab on the result" do
+      calc.evaluate("2 + 3")
+      calc.evaluate(" + 2")
+      expect(calc.result).to eq(7)
+    end
+
+    it 'stores the history of multiple operations' do
+      calc.evaluate('1+2')
+      calc.evaluate('3*4')
+      calc.evaluate('5-1')
+      expect(calc.history).to eq([3, 12, 4])
     end
   end
 
@@ -46,3 +59,12 @@ RSpec.describe Calculator do
   end
 
 end
+
+# Don't really need the "can's"
+
+# .rspec file
+## All it does is allow you to add arguments to the rspec command so whenever
+## rspec is run, the commands automatically follow
+
+
+## Write the spec the way you want the Object to work, and then make it work!

@@ -1,6 +1,0 @@
-# I would like to learn more about this file so I can use colorize and format documentation
-
----colorize
---format documentation
---require spec_helper
---require rails_helper
