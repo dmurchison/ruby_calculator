@@ -56,7 +56,6 @@ class Calculator
 
 end
 
-
 # Using RSpec TDD make this calculator work with more than one operation at a time ie "2 + 3 - 4" should return 1.
 # Create assertion about evaluation and execution
 
@@ -76,4 +75,4 @@ c.evaluate("2+2")
 c.evaluate("5*10")
 p c.history # ~> [4,4] When it should be [4, 50]
 
-## Something is not resetting result
+## Something is not resetting @result
