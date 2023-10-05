@@ -66,12 +66,21 @@ RSpec.describe Calculator do
     end
   end
 
+  describe "#clear_output" do
+    it "clears to result of the previous output" do
+      calc.evaluate("3 * 5")
+      expect(calc.result).to eq(15)
+      calc.clear_output
+      expect(calc.result).to eq(nil)
+    end
+  end
+
 end
 
-# Don't really need the "can's"
+## NOTES:
+# Don't really need the "can's" in the it blocks
 
-# .rspec file
-## All it does is allow you to add arguments to the rspec command so whenever
-## rspec is run, the commands automatically follow
-
-## Write the spec the way you want the Object to work, and then make it work!
+## TODO:
+# Write a fully functional clear button(method)
+# Create a strict mode to only allow running operations and raise an error if
+## operations attempted back to back before clearing the previous output.

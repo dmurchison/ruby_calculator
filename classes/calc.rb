@@ -5,7 +5,7 @@ require "pry-byebug"
 
 # Creating a Calculator class
 class Calculator
-  OPERATOR_PATTERN = /[+\-*\/%]/
+  OPERATOR_PATTERN = /[+\-*\/%]/.freeze
   attr_accessor :result, :history
 
   def initialize
@@ -13,18 +13,19 @@ class Calculator
     @history = []
   end
 
-  def evaluate(expression)
-    tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/) # \d+ = one or more digits, | = or, [+\-*\/%] = one of these characters
-    if @result && !first_token_is_operator?(tokens)
-      @result = nil
-    end
+  def clear_output
+    @result = nil
+  end
 
-    operator = nil # set this to nil so we can use it in the operate method
-    second_operand = nil # set this to nil so we can use it in the operate method
-    tokens.each do |token| # token is a variable that represents each element in the array
-      if @result.nil? # if result is nil, set it to the first token
-        @result = token.to_i # to_i converts a string to an integer
-        next # next skips the rest of the code in the loop and goes to the next iteration
+  def evaluate(expression)
+    tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/)
+    clear_output if @result && !first_token_is_operator?(tokens)
+    operator = nil
+    second_operand = nil
+    tokens.each do |token|
+      if @result.nil?
+        @result = token.to_i
+        next
       end
       if operator.nil? # if operator is nil, set it to the next token
         operator = token # this is the operator
