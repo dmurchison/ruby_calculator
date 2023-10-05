@@ -50,6 +50,11 @@ RSpec.describe Calculator do
       expect(calc.result).to eq(36)
     end
 
+    it "can modulate two numbers" do
+      calc.evaluate("10 % 4")
+      expect(calc.result).to eq(2)
+    end
+
     it "can divide by 0 without raising ZeroDivisionError and an explanation" do
       expect { calc.evaluate("5 / 0") }.to_not raise_error
       expect(calc.result).to be_a(String)
@@ -70,8 +75,12 @@ RSpec.describe Calculator do
     it "clears to result of the previous output" do
       calc.evaluate("3 * 5")
       expect(calc.result).to eq(15)
+      calc.evaluate("5 + 5")
+      expect(calc.result).to eq(10)
+      expect(calc.history).to eq([15, 10])
       calc.clear_output
       expect(calc.result).to eq(nil)
+      expect(calc.history).to be_a(Array)
     end
   end
 
@@ -79,8 +88,15 @@ end
 
 ## NOTES:
 # Don't really need the "can's" in the it blocks
+# Defect: Mistake in the code ()
+# Error: Is when we have to make an exception to the code (ie. divide by 0).
+# We can handle it by either raising an error or returning a string.
+# Ruby doesnt assign instance variables until you set an entry.
+
+## Exernal API (The history method can be considered an external API)
+# Keeps a history of results so that the user can reference each.
 
 ## TODO:
-# Write a fully functional clear button(method)
+# Write a fully functional clear button(method) ✅
 # Create a strict mode to only allow running operations and raise an error if
 ## operations attempted back to back before clearing the previous output.
