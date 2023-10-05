@@ -8,6 +8,7 @@ class Calculator
   attr_accessor :result, :history
 
   def initialize
+    @result = nil # Nice tiny documentation for the beginning state
     @history = []
   end
 
@@ -30,9 +31,7 @@ class Calculator
       operator = nil # set operator back to nil so we can use it in the next iteration
       second_operand = nil # set second_operand back to nil so we can use it in the next iteratio
     end
-    # binding.pry
     @history << @result
-    @result
   end
 
   private
@@ -70,9 +69,11 @@ end
 
 # Problem:
 ## This is storing only the history of the first operation over and over again ie...
-c = Calculator.new
-c.evaluate("2+2")
-c.evaluate("5*10")
-p c.history # ~> [4,4] When it should be [4, 50]
+# c = Calculator.new
+# c.evaluate("2+2")
+# c.evaluate("5*10")
+# p c.history # ~> [4,4] When it should be [4, 50]
 
 ## Something is not resetting @result
+
+# Ruby doesnt assign instance variables until you set an entry

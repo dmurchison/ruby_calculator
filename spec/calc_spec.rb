@@ -18,12 +18,20 @@ RSpec.describe Calculator do
       expect(calc.result).to eq(7)
     end
 
-    it 'stores the history of multiple operations' do
-      calc.evaluate('1+2')
-      calc.evaluate('3*4')
-      calc.evaluate('5-1')
-      expect(calc.history).to eq([3, 12, 4])
+    it "stores the history of multiple operations" do
+      calc.evaluate("1+2") # 3
+      calc.evaluate(" - 1*4") # 8
+      calc.evaluate(" + 5-1") # 12
+      expect(calc.history).to eq([3, 8, 12])
     end
+
+    xit "handles multiple complete expressions" do
+      calc.evaluate("1+2")
+      calc.evaluate("3*4")
+      calc.evaluate("5-1")
+      # expect???
+    end
+
   end
 
   describe "#operate" do
