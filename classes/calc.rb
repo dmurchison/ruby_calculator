@@ -5,6 +5,7 @@ require "pry-byebug"
 
 # Creating a Calculator class
 class Calculator
+  OPERATOR_PATTERN = /[+\-*\/%]/
   attr_accessor :result, :history
 
   def initialize
@@ -13,10 +14,13 @@ class Calculator
   end
 
   def evaluate(expression)
-    tokens = expression.scan(/\d+|[+\-*\/%]/) # \d+ = one or more digits, | = or, [+\-*\/%] = one of these characters
+    tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/) # \d+ = one or more digits, | = or, [+\-*\/%] = one of these characters
+    if @result && !first_token_is_operator?(tokens)
+      @result = nil
+    end
+
     operator = nil # set this to nil so we can use it in the operate method
     second_operand = nil # set this to nil so we can use it in the operate method
-    # binding.pry
     tokens.each do |token| # token is a variable that represents each element in the array
       if @result.nil? # if result is nil, set it to the first token
         @result = token.to_i # to_i converts a string to an integer
@@ -36,6 +40,10 @@ class Calculator
 
   private
 
+  def first_token_is_operator?(tokens)
+    tokens.first.match?(OPERATOR_PATTERN)
+  end
+
   def operate(operator, second_operand) # this method is private because we don't call it outside of the class
     case operator # case operator is the same as if operator == "+"
     when "+" # when operator is "+", add the second operand to the result
@@ -50,6 +58,8 @@ class Calculator
       rescue ZeroDivisionError
         @result = "You can't divide by 0!" # Return this instead of raising an error if the user tries to divide by 0.
       end
+    else
+      raise ArgumentError, "Don't know how to use #{operator} as an operator"
     end
   end
 

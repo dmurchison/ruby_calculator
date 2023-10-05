@@ -25,16 +25,16 @@ RSpec.describe Calculator do
       expect(calc.history).to eq([3, 8, 12])
     end
 
-    xit "handles multiple complete expressions" do
+    it "handles multiple complete expressions" do
       calc.evaluate("1+2")
+      expect(calc.result).to eq(3)
       calc.evaluate("3*4")
+      expect(calc.result).to eq(12)
       calc.evaluate("5-1")
-      # expect???
+      expect(calc.result).to eq(4)
+      expect(calc.history).to eq([3, 12, 4])
     end
 
-  end
-
-  describe "#operate" do
     it "can add two numbers" do
       calc.evaluate("4 + 5")
       expect(calc.result).to eq(9)
@@ -73,6 +73,5 @@ end
 # .rspec file
 ## All it does is allow you to add arguments to the rspec command so whenever
 ## rspec is run, the commands automatically follow
-
 
 ## Write the spec the way you want the Object to work, and then make it work!
