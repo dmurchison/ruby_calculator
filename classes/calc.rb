@@ -8,9 +8,10 @@ class Calculator
   OPERATOR_PATTERN = /[+\-*\/%]/.freeze
   attr_accessor :result, :history
 
-  def initialize
+  def initialize(strict_mode: false)
     @result = nil
     @history = []
+    @strict_mode = strict_mode
   end
 
   def clear_output
@@ -54,23 +55,30 @@ class Calculator
     when "*"
       @result *= second_operand
     when "/"
-      begin
+      if @strict_mode == true
+        begin
+          @result /= second_operand
+        rescue ZeroDivisionError
+          @result = "You can't divide by 0!"
+        end
+      else
         @result /= second_operand
-      rescue ZeroDivisionError
-        @result = "You can't divide by 0!"
       end
     when "%"
       @result %= second_operand
     else
-      raise ArgumentError, "Don't know how to use #{operator} as an operator"
+      raise ArgumentError, "Don't recognize this operator" if strict_mode == true
     end
   end
 
 end
 
-# c = Calculator.new
-# c.evaluate("2+2")
-# c.evaluate("5*10")
-# p c.history # ~> [4,4] When it should be [4, 50]
-
-## Something is not resetting @result
+c = Calculator.new(strict_mode: true)
+p c.evaluate("2+2")
+p c.evaluate("5*10")
+p c.evaluate("10/0")
+p c.evaluate("10/5")
+p c.evaluate("15%2")
+p c.evaluate("4@7")
+# Need another condition to actiavte this or skip through the if statement used
+# for strict mode.

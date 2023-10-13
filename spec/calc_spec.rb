@@ -55,9 +55,18 @@ RSpec.describe Calculator do
       expect(calc.result).to eq(2)
     end
 
-    it "can divide by 0 without raising ZeroDivisionError and an explanation" do
-      expect { calc.evaluate("5 / 0") }.to_not raise_error
-      expect(calc.result).to be_a(String)
+    context "when strict mode is set to true" do
+      let(:calc) { Calculator.new(strict_mode: true) }
+
+      it "can divide by 0 without raising ZeroDivisionError and an explanation" do
+        expect { calc.evaluate("5 / 0") }.to_not raise_error
+        expect(calc.result).to be_a(String)
+      end
+
+      it "should raise ArgumentError if invalid operator is input" do
+        expect { calc.evaluate("5 ? 10") }.to raise(error)
+        expect(calc.result).to raise(ArgumentError)
+      end
     end
 
     it "can evaluate multiple operations" do
