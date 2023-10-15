@@ -18,6 +18,10 @@ class Calculator
     @result = nil
   end
 
+  def func
+    "This function will always return THIS!"
+  end
+
   def evaluate(expression)
     tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/)
     clear_output if @result && !first_token_is_operator?(tokens)

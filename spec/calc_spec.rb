@@ -64,10 +64,13 @@ RSpec.describe Calculator do
       end
 
       xit "should raise ArgumentError if invalid operator is input" do
+        # TODO: Make this spec work
         expect { calc.evaluate("5 ? 10") }.to raise(error)
         expect(calc.result).to raise(ArgumentError)
       end
     end
+
+    describe "#func"
 
     it "can evaluate multiple operations" do
       calc.evaluate("2 + 3 - 4")
