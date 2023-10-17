@@ -71,7 +71,7 @@ class Calculator
     when "%"
       @result %= second_operand
     else
-      raise ArgumentError, "Don't recognize this operator" if strict_mode == true
+      raise ArgumentError, "Don't recognize this operator" if @strict_mode
     end
   end
 
