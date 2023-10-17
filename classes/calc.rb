@@ -14,17 +14,21 @@ class Calculator
     @strict_mode = strict_mode
   end
 
-  def clear_output
+  def clear
     @result = nil
-  end
-
-  def func
-    "This function will always return THIS!"
   end
 
   def evaluate(expression)
     tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/)
-    clear_output if @result && !first_token_is_operator?(tokens)
+
+    if successive_whole_expression?(tokens)
+      if @strict_mode
+        raise "Successive expressions must start with an operator"
+      else
+        clear
+      end
+    end
+
     operator = nil
     second_operand = nil
     tokens.each do |token|
@@ -41,10 +45,15 @@ class Calculator
       operator = nil
       second_operand = nil
     end
-    @history << @result
+    @history << @result # Stop paying attention to this return value
+    nil
   end
 
   private
+
+  def successive_whole_expression?(tokens)
+    @result && !first_token_is_operator?(tokens)
+  end
 
   def first_token_is_operator?(tokens)
     tokens.first.match?(OPERATOR_PATTERN)
@@ -77,16 +86,21 @@ class Calculator
 
 end
 
-c = Calculator.new(strict_mode: true)
+# c = Calculator.new(strict_mode: true)
 # p c.evaluate("2+2")
 # p c.evaluate("5*10")
 # p c.evaluate("10/0")
 # p c.evaluate("10/5")
 # p c.evaluate("15%2")
 
-p c.evaluate("4?7")
 ## EXPECT => ArgumentError: Don't recognize this operator
 ## ACTUAL => [4]
 
 # Need another condition to actiavte this or skip through the if statement used
 # for strict mode.
+
+# Functions vs Procedures
+## Procedures: Change the state
+## Dont rely on the return values of procedures
+
+## Functions: Input - Output

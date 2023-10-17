@@ -55,22 +55,14 @@ RSpec.describe Calculator do
       expect(calc.result).to eq(2)
     end
 
-    context "when strict mode is set to true" do
+    context "when strict mode is enabled" do
       let(:calc) { Calculator.new(strict_mode: true) }
 
-      it "can divide by 0 without raising ZeroDivisionError and an explanation" do
-        expect { calc.evaluate("5 / 0") }.to_not raise_error
-        expect(calc.result).to be_a(String)
-      end
-
-      xit "should raise ArgumentError if invalid operator is input" do
-        # TODO: Make this spec work
-        expect { calc.evaluate("5 ? 10") }.to raise(error)
-        expect(calc.result).to raise(ArgumentError)
+      it "dissalows successive whole expressions" do
+        calc.evaluate("3 * 5")
+        expect { calc.evaluate("5 + 5") }.to raise_error
       end
     end
-
-    describe "#func"
 
     it "can evaluate multiple operations" do
       calc.evaluate("2 + 3 - 4")
@@ -83,21 +75,30 @@ RSpec.describe Calculator do
     end
   end
 
-  describe "#clear_output" do
-    it "clears to result of the previous output" do
+  describe "#clear" do
+    it "clears the result of the previous evaluation" do
+
+      ## Arrange
       calc.evaluate("3 * 5")
       expect(calc.result).to eq(15)
       calc.evaluate("5 + 5")
       expect(calc.result).to eq(10)
       expect(calc.history).to eq([15, 10])
-      calc.clear_output
-      expect(calc.result).to eq(nil)
-      expect(calc.history).to be_a(Array)
+
+      # Action
+      calc.clear
+
+      # Assert
+      expect(calc.result).to eq(nil) # Assert
+      expect(calc.history).to eq([15, 10])
     end
   end
 
+  
+
 end
 
+# 2023-10-
 ## NOTES:
 # Don't really need the "can's" in the it blocks
 # Defect: Mistake in the code ()
@@ -109,6 +110,14 @@ end
 # Keeps a history of results so that the user can reference each.
 
 ## TODO:
-# Write a fully functional clear button(method) ✅
-# Create a strict mode to only allow running operations and raise an error if
+# Write #clear method that only clears the previous output and keeps the history ✅
+
+# Create a strict mode to only allow running operations and raise an error if ✅
 ## operations attempted back to back before clearing the previous output.
+
+## Dont rely on the return values of prcedures
+
+# calc.evaluate("2+3") # 5
+# calc.evaluate("* 3") # 15
+# calc.evaluate("- @1") # @1 refers to history[0]
+# calc.result # 10
