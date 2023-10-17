@@ -78,11 +78,15 @@ class Calculator
 end
 
 c = Calculator.new(strict_mode: true)
-p c.evaluate("2+2")
-p c.evaluate("5*10")
-p c.evaluate("10/0")
-p c.evaluate("10/5")
-p c.evaluate("15%2")
-p c.evaluate("4@7")
+# p c.evaluate("2+2")
+# p c.evaluate("5*10")
+# p c.evaluate("10/0")
+# p c.evaluate("10/5")
+# p c.evaluate("15%2")
+
+p c.evaluate("4?7")
+## EXPECT => ArgumentError: Don't recognize this operator
+## ACTUAL => [4]
+
 # Need another condition to actiavte this or skip through the if statement used
 # for strict mode.
