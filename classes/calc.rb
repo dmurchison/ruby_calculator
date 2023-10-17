@@ -20,15 +20,13 @@ class Calculator
 
   def evaluate(expression)
     tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/)
-
     if successive_whole_expression?(tokens)
-      if @strict_mode
+      if @strict_mode # rubocop:disable Style/GuardClause
         raise "Successive expressions must start with an operator"
       else
         clear
       end
     end
-
     operator = nil
     second_operand = nil
     tokens.each do |token|
@@ -45,7 +43,7 @@ class Calculator
       operator = nil
       second_operand = nil
     end
-    @history << @result # Stop paying attention to this return value
+    @history << @result # Return value not important
     nil
   end
 

@@ -94,11 +94,8 @@ RSpec.describe Calculator do
     end
   end
 
-  
-
 end
 
-# 2023-10-
 ## NOTES:
 # Don't really need the "can's" in the it blocks
 # Defect: Mistake in the code ()
