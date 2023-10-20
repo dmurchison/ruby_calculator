@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rspec"
-require "pry-byebug"
 
 # Creating a Calculator class
 class Calculator
@@ -27,6 +26,9 @@ class Calculator
         clear
       end
     end
+
+    binding.irb
+    
     operator = nil
     second_operand = nil
     tokens.each do |token|
@@ -58,6 +60,9 @@ class Calculator
   end
 
   def operate(operator, second_operand)
+
+    binding.irb
+
     case operator
     when "+"
       @result += second_operand
@@ -84,10 +89,10 @@ class Calculator
 
 end
 
-# c = Calculator.new(strict_mode: true)
+c = Calculator.new(strict_mode: false)
 # p c.evaluate("2+2")
 # p c.evaluate("5*10")
-# p c.evaluate("10/0")
+p c.evaluate("10/0")
 # p c.evaluate("10/5")
 # p c.evaluate("15%2")
 

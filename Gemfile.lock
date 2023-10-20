@@ -5,8 +5,6 @@ GEM
     backport (1.2.0)
     base64 (0.1.1)
     benchmark (0.2.1)
-    byebug (11.1.3)
-    coderay (1.1.3)
     diff-lcs (1.5.0)
     e2mmap (0.1.0)
     jaro_winkler (1.5.6)
@@ -16,19 +14,12 @@ GEM
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     language_server-protocol (3.17.0.3)
-    method_source (1.0.0)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
-    pry (0.14.2)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
-    pry-byebug (3.10.1)
-      byebug (~> 11.0)
-      pry (>= 0.13, < 0.15)
     racc (1.7.1)
     rainbow (3.1.1)
     rbs (2.8.2)
@@ -90,7 +81,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  pry-byebug
   rspec (~> 3.2.0)
   rspec-core (~> 3.2.0)
   solargraph
