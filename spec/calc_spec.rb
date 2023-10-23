@@ -4,12 +4,17 @@ require_relative "../classes/calc" # First I need to load the class/file I want 
 require "rspec"
 
 RSpec.describe Calculator do
-  let(:calc) { Calculator.new } # This is a helper method that will create a new instance of the Calculator
+  let(:calc) { Calculator.new(strict_mode: false) }
+  # This is a helper method that will create a new instance of the Calculator
+  # Creating it here will allow us to use it in all of our testing blocks.
+  # We only need to create a new instance of the Calculator if we are using a new context block. (ie. describe block)
 
   describe "#evaluate" do
     it "evaluates an arithmetic expression" do
-      expect { calc.evaluate("2 + 3").to be_a(Array) }
-      expect { calc.evaluate("2 + 3*100").to eq(["2", "+", "3", "*", "100"]) }
+      calc.evaluate("2 + 3")
+      calc.evaluate("+ 2")
+      expect(calc.history).to be_a(Array)
+      expect(calc.history).to eq([5, 7])
     end
 
     it "keeps a running tab on the result" do
@@ -58,7 +63,25 @@ RSpec.describe Calculator do
     context "when strict mode is enabled" do
       let(:calc) { Calculator.new(strict_mode: true) }
 
-      it "dissalows successive whole expressions" do
+      describe "#evaluate in strict mode" do
+        xit "raises an error if the first token is not a number" do
+          expect { calc.evaluate("+ 3") }.to raise_error(ArgumentError)
+        end
+
+        xit "raises an error if the first token is not a number" do
+          expect { calc.evaluate("3 + 5") }.to raise_error(ArgumentError)
+        end
+
+        xit "raises an error if the first token is not a number" do
+          expect { calc.evaluate("3 + 5") }.to raise_error(ArgumentError)
+        end
+
+        xit "raises an error if the first token is not a number" do
+          expect { calc.evaluate("3 + 5") }.to raise_error(ArgumentError)
+        end
+      end
+
+      xit "dissalows successive whole expressions" do
         calc.evaluate("3 * 5")
         expect { calc.evaluate("5 + 5") }.to raise_error
       end

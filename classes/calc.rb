@@ -27,8 +27,8 @@ class Calculator
       end
     end
 
-    binding.irb
-    
+    # binding.irb
+
     operator = nil
     second_operand = nil
     tokens.each do |token|
@@ -51,6 +51,8 @@ class Calculator
 
   private
 
+  # binding.irb
+  
   def successive_whole_expression?(tokens)
     @result && !first_token_is_operator?(tokens)
   end
@@ -60,9 +62,6 @@ class Calculator
   end
 
   def operate(operator, second_operand)
-
-    binding.irb
-
     case operator
     when "+"
       @result += second_operand
@@ -89,10 +88,10 @@ class Calculator
 
 end
 
-c = Calculator.new(strict_mode: false)
+# c = Calculator.new(strict_mode: false)
 # p c.evaluate("2+2")
 # p c.evaluate("5*10")
-p c.evaluate("10/0")
+# p c.evaluate("10/0")
 # p c.evaluate("10/5")
 # p c.evaluate("15%2")
 
