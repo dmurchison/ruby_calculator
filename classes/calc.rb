@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rspec"
-
 # Creating a Calculator class
 class Calculator
   OPERATOR_PATTERN = /[+\-*\/%]/.freeze
