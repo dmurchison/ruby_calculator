@@ -4,117 +4,108 @@ require_relative "../classes/calc" # First I need to load the class/file I want 
 require "rspec"
 
 RSpec.describe Calculator do
-  let(:calc) { Calculator.new(strict_mode: false) }
-  # This is a helper method that will create a new instance of the Calculator
-  # Creating it here will allow us to use it in all of our testing blocks.
-  # We only need to create a new instance of the Calculator if we are using a new context block. (ie. describe block)
 
-  describe "#evaluate" do
-    it "evaluates an arithmetic expression" do
-      calc.evaluate("2 + 3")
-      calc.evaluate("+ 2")
-      expect(calc.history).to be_a(Array)
-      expect(calc.history).to eq([5, 7])
-    end
+  context "strict_mode is disabled" do
+    let(:calc) { Calculator.new(strict_mode: false) }
 
-    it "keeps a running tab on the result" do
-      calc.evaluate("2 + 3")
-      calc.evaluate(" + 2")
-      expect(calc.result).to eq(7)
-    end
-
-    it "stores the history of multiple operations" do
-      calc.evaluate("1+2") # 3
-      calc.evaluate(" - 1*4") # 8
-      calc.evaluate(" + 5-1") # 12
-      expect(calc.history).to eq([3, 8, 12])
-    end
-
-    it "handles multiple complete expressions" do
-      calc.evaluate("1+2")
-      expect(calc.result).to eq(3)
-      calc.evaluate("3*4")
-      expect(calc.result).to eq(12)
-      calc.evaluate("5-1")
-      expect(calc.result).to eq(4)
-      expect(calc.history).to eq([3, 12, 4])
-    end
-
-    it "can add two numbers" do
-      calc.evaluate("4 + 5")
-      expect(calc.result).to eq(9)
-    end
-
-    it "can subtract two numbers" do
-      calc.evaluate("5 - 2")
-      expect(calc.result).to eq(3)
-    end
-
-    it "can multiply two numbers" do
-      calc.evaluate("6 * 6")
-      expect(calc.result).to eq(36)
-    end
-
-    it "can modulate two numbers" do
-      calc.evaluate("10 % 4")
-      expect(calc.result).to eq(2)
-    end
-
-    context "when strict mode is enabled" do
-      let(:calc) { Calculator.new(strict_mode: true) }
-
-      describe "#evaluate in strict mode" do
-        xit "raises an error if the first token is not a number" do
-          expect { calc.evaluate("+ 3") }.to raise_error(ArgumentError)
-        end
-
-        xit "raises an error if the first token is not a number" do
-          expect { calc.evaluate("3 + 5") }.to raise_error(ArgumentError)
-        end
-
-        xit "raises an error if the first token is not a number" do
-          expect { calc.evaluate("3 + 5") }.to raise_error(ArgumentError)
-        end
-
-        xit "raises an error if the first token is not a number" do
-          expect { calc.evaluate("3 + 5") }.to raise_error(ArgumentError)
-        end
+    describe "#evaluate" do
+      it "evaluates an arithmetic expression" do
+        calc.evaluate("2 + 3")
+        calc.evaluate("+ 2")
+        expect(calc.history).to be_a(Array)
+        expect(calc.history).to eq([5, 7])
       end
 
-      xit "dissalows successive whole expressions" do
-        calc.evaluate("3 * 5")
-        expect { calc.evaluate("5 + 5") }.to raise_error
+      it "keeps a running tab on the result" do
+        calc.evaluate("2 + 3")
+        calc.evaluate(" + 2")
+        expect(calc.result).to eq(7)
+      end
+
+      it "stores the history of multiple operations" do
+        calc.evaluate("1+2") # 3
+        calc.evaluate(" - 1*4") # 8
+        calc.evaluate(" + 5-1") # 12
+        expect(calc.history).to eq([3, 8, 12])
+      end
+
+      it "handles multiple complete expressions" do
+        calc.evaluate("1+2")
+        expect(calc.result).to eq(3)
+        calc.evaluate("3*4")
+        expect(calc.result).to eq(12)
+        calc.evaluate("5-1")
+        expect(calc.result).to eq(4)
+        expect(calc.history).to eq([3, 12, 4])
+      end
+
+      it "adds two numbers" do
+        calc.evaluate("4 + 5")
+        expect(calc.result).to eq(9)
+      end
+
+      it "subtracts two numbers" do
+        calc.evaluate("5 - 2")
+        expect(calc.result).to eq(3)
+      end
+
+      it "multiplies two numbers" do
+        calc.evaluate("6 * 6")
+        expect(calc.result).to eq(36)
+      end
+
+      it "calculate the modulo of two numbers" do
+        calc.evaluate("10 % 4")
+        expect(calc.result).to eq(2)
       end
     end
 
-    it "can evaluate multiple operations" do
-      calc.evaluate("2 + 3 - 4")
-      expect(calc.result).to eq(1)
-    end
-
-    it "can evaluate funky formatted strings" do
-      calc.evaluate("25    +5*2")
-      expect(calc.result).to eq(60)
-    end
   end
 
-  describe "#clear" do
-    it "clears the result of the previous evaluation" do
+  context "when strict mode is enabled" do
+    let(:calc) { Calculator.new(strict_mode: true) }
 
-      ## Arrange
-      calc.evaluate("3 * 5")
-      expect(calc.result).to eq(15)
-      calc.evaluate("5 + 5")
-      expect(calc.result).to eq(10)
-      expect(calc.history).to eq([15, 10])
+    describe "#evaluate in strict mode" do
+      it "raises an error if the first token is not a number" do
+        expect { calc.evaluate("+ 3") }.to raise_error(ArgumentError)
+      end
 
-      # Action
-      calc.clear
+      it "dissalows successive whole expressions" do
+        calc.evaluate("3 * 5")
+        calc.evaluate("+ 5")
+        expect(calc.result).to raise_error(ArgumentError)
+      end
 
-      # Assert
-      expect(calc.result).to eq(nil) # Assert
-      expect(calc.history).to eq([15, 10])
+      it "can evaluate multiple operations" do
+        calc.evaluate("2 + 3 - 4")
+        expect(calc.result).to eq(1)
+      end
+
+      it "can evaluate funky formatted strings" do
+        calc.evaluate("25    +5*2")
+        expect(calc.result).to eq(60)
+      end
     end
+
+    describe "#clear" do
+      it "clears the result of the previous evaluation" do
+
+        ## Arrange
+        calc.evaluate("3 * 5")
+        expect(calc.result).to eq(15)
+        calc.evaluate("5 + 5")
+        expect(calc.result).to eq(10)
+        expect(calc.history).to eq([15, 10])
+
+        # Action
+        calc.clear
+
+        # Assert
+        expect(calc.result).to eq(nil) # Assert
+        expect(calc.history).to eq([15, 10])
+      end
+    end
+
   end
 
 end

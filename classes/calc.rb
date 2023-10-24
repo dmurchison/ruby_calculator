@@ -20,14 +20,12 @@ class Calculator
   def evaluate(expression)
     tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/)
     if successive_whole_expression?(tokens)
-      if @strict_mode # rubocop:disable Style/GuardClause
-        raise "Successive expressions must start with an operator"
+      if @strict_mode == true
+        raise ArgumentError, "Successive whole expressions must start with an operator"
       else
         clear
       end
     end
-
-    # binding.irb
 
     operator = nil
     second_operand = nil
@@ -46,13 +44,12 @@ class Calculator
       second_operand = nil
     end
     @history << @result # Return value not important
-    nil
   end
 
   private
 
   # binding.irb
-  
+
   def successive_whole_expression?(tokens)
     @result && !first_token_is_operator?(tokens)
   end
@@ -71,27 +68,33 @@ class Calculator
       @result *= second_operand
     when "/"
       if @strict_mode == true
+        @result /= second_operand
+      else
         begin
           @result /= second_operand
         rescue ZeroDivisionError
           @result = "You can't divide by 0!"
         end
-      else
-        @result /= second_operand
       end
     when "%"
       @result %= second_operand
     else
-      raise ArgumentError, "Don't recognize this operator" if @strict_mode
+      if @strict_mode == true
+        raise ArgumentError, "Don't recognize this operator"
+      end
     end
   end
 
 end
 
-# c = Calculator.new(strict_mode: false)
-# p c.evaluate("2+2")
-# p c.evaluate("5*10")
-# p c.evaluate("10/0")
+# c_f = Calculator.new(strict_mode: false)
+# c_t = Calculator.new(strict_mode: true)
+# c_f.evaluate("2+2")
+# c_f.evaluate("+3")
+# c_t.evaluate("5+5")
+# c_t.evaluate("+5")
+# p c_f.history
+# p c_t.history
 # p c.evaluate("10/5")
 # p c.evaluate("15%2")
 
