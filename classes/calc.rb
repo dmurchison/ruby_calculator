@@ -20,11 +20,10 @@ class Calculator
   def evaluate(expression)
     tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/)
     if successive_whole_expression?(tokens)
-      if @strict_mode == true
-        raise ArgumentError, "Successive whole expressions must start with an operator"
-      else
-        clear
-      end
+      raise ArgumentError, "Successive whole expressions must start with an operator" if @strict_mode == true
+
+      clear
+
     end
 
     operator = nil
@@ -79,9 +78,7 @@ class Calculator
     when "%"
       @result %= second_operand
     else
-      if @strict_mode == true
-        raise ArgumentError, "Don't recognize this operator"
-      end
+      raise ArgumentError, "Don't recognize this operator" if @strict_mode == true
     end
   end
 
