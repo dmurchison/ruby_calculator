@@ -76,12 +76,12 @@ RSpec.describe Calculator do
         expect(calc.result).to raise_error(ArgumentError)
       end
 
-      it "can evaluate multiple operations" do
+      it "evaluates multiple operations" do
         calc.evaluate("2 + 3 - 4")
         expect(calc.result).to eq(1)
       end
 
-      it "can evaluate funky formatted strings" do
+      it "evaluates funky formatted strings" do
         calc.evaluate("25    +5*2")
         expect(calc.result).to eq(60)
       end
