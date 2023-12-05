@@ -132,3 +132,8 @@ end
 # calc.evaluate("* 3") # 15
 # calc.evaluate("- @1") # @1 refers to history[0]
 # calc.result # 10
+
+## Failing Specs
+# calc.evaluate("2+3") # 5 # should be 6
+# calc.evaluate("* 3") # 15 # should be 18
+# calc.evaluate("- @1") # @1 refers to history[0] # should be 10
