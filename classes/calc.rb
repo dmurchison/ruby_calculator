@@ -104,3 +104,9 @@ end
 ## Dont rely on the return values of procedures
 
 ## Functions: Input - Output
+
+## TODO:
+# Write #clear method that only clears the previous output and keeps the history ✅
+
+# Create a strict mode to only allow running operations and raise an error if
+## operations attempted back to back before clearing the previous output. ❌

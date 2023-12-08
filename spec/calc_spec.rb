@@ -121,10 +121,10 @@ end
 # Keeps a history of results so that the user can reference each.
 
 ## TODO:
-# Write #clear method that only clears the previous output and keeps the history ✅
+# Write #clear method that only clears the previous output and keeps the history. ✅
 
-# Create a strict mode to only allow running operations and raise an error if ✅
-## operations attempted back to back before clearing the previous output.
+# Create a strict mode to only allow running operations and raise an error if
+## operations attempted back to back before clearing the previous output. ✅
 
 ## Dont rely on the return values of prcedures
 
