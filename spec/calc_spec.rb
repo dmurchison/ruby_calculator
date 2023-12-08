@@ -60,6 +60,15 @@ RSpec.describe Calculator do
       end
     end
 
+    describe "#history Strict Mode: Disabled" do
+      it "returns the history of the calculator" do
+        calc.evaluate("2 + 3")
+        calc.evaluate("+ 2")
+        expect(calc.history).to be_a(Array)
+        expect(calc.history).to eq([5, 7])
+      end
+    end
+
   end
 
   context "when strict mode is enabled" do
@@ -84,6 +93,15 @@ RSpec.describe Calculator do
       it "evaluates funky formatted strings" do
         calc.evaluate("25    +5*2")
         expect(calc.result).to eq(60)
+      end
+    end
+
+    describe "#history Strict Mode: Enabled" do
+      it "returns the history of the calculator" do
+        calc.evaluate("2 + 3")
+        calc.evaluate("+ 2")
+        expect(calc.history).to be_a(Array)
+        expect(calc.history).to eq([5, 7])
       end
     end
 
