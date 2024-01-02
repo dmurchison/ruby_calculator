@@ -5,16 +5,31 @@ class Calculator
   OPERATOR_PATTERN = /[+\-*\/%]/.freeze
   attr_accessor :result, :history
 
+  # Initializes a new instance of the Calculator class.
+  #
+  # Parameters:
+  # - strict_mode (Boolean): Determines whether strict mode is enabled or not.
+  #
+  # Returns: None
   def initialize(strict_mode: false)
     @result = nil
     @history = []
     @strict_mode = strict_mode
   end
 
+  # Clears the result of the calculator.
+  #
+  # Returns: None
   def clear
     @result = nil
   end
 
+  # Evaluates the given expression and performs the corresponding calculations.
+  #
+  # Parameters:
+  # - expression (String): The expression to be evaluated.
+  #
+  # Returns: None
   def evaluate(expression)
     tokens = expression.scan(/\d+|#{OPERATOR_PATTERN}/)
     if successive_whole_expression?(tokens)
@@ -45,16 +60,36 @@ class Calculator
 
   private
 
-  # binding.irb
-
+  # Determines if the given tokens represent a successive whole expression.
+  #
+  # Parameters:
+  # - tokens (Array<String>): The tokens to check.
+  #
+  # Returns:
+  # - A boolean value indicating whether the tokens represent a successive whole expression.
   def successive_whole_expression?(tokens)
     @result && !first_token_is_operator?(tokens)
   end
 
+  # Checks if the first token in the given array of tokens is an operator.
+  #
+  # Parameters:
+  # - tokens (Array<String>): An array of tokens.
+  #
+  # Returns:
+  # - A boolean value indicating whether the first token is an operator.
   def first_token_is_operator?(tokens)
     tokens.first.match?(OPERATOR_PATTERN)
   end
 
+  # Performs the specified operation on the first operand and the second operand.
+  #
+  # Parameters:
+  # - operator (String): The operator to be used for the operation.
+  # - second_operand (Numeric): The second operand for the operation.
+  #
+  # Returns:
+  # - The result of the operation.
   def operate(operator, second_operand)
     case operator
     when "+"
@@ -81,32 +116,3 @@ class Calculator
   end
 
 end
-
-# c_f = Calculator.new(strict_mode: false)
-# c_t = Calculator.new(strict_mode: true)
-# c_f.evaluate("2+2")
-# c_f.evaluate("+3")
-# c_t.evaluate("5+5")
-# c_t.evaluate("+5")
-# p c_f.history
-# p c_t.history
-# p c.evaluate("10/5")
-# p c.evaluate("15%2")
-
-## EXPECT => ArgumentError: Don't recognize this operator
-## ACTUAL => [4]
-
-# Need another condition to actiavte this or skip through the if statement used
-# for strict mode.
-
-# Functions vs Procedures
-## Procedures: Change the state
-## Dont rely on the return values of procedures
-
-## Functions: Input - Output
-
-## TODO:
-# Write #clear method that only clears the previous output and keeps the history ✅
-
-# Create a strict mode to only allow running operations and raise an error if
-## operations attempted back to back before clearing the previous output. ❌
